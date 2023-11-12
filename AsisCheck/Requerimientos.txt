@@ -1,0 +1,36 @@
+Requerimientos
+
+Lenguajes:
+ -PHP
+ -Javascript
+ -Base de datos: MariaDB (Tablas en Diagrama.png)
+
+Interfaz:
+ -Utilizar Bootstrap
+
+Alta, Baja y Modificación de Alumnos:
+ -Crear una interfaz para agregar nuevos alumnos con campos para nombre, apellido, DNI y fecha de nacimiento.
+ -Permitir la modificación de los datos de los alumnos existentes.
+ -Implementar la funcionalidad para eliminar alumnos.
+ -Mostrar un listado de alumnos ordenado alfabéticamente por apellido en la interfaz.
+
+Porcentaje de Asistencias:
+ -Calcular y mostrar el porcentaje de asistencias de cada alumno en la interfaz.
+
+Cargar Asistencia:
+ -Crear una interfaz para registrar la asistencia de los alumnos.
+
+Promocionar o No:
+ -Utilizar el porcentaje de asistencias para determinar si un alumno promociona.
+ -Marcar en la interfaz si un alumno promociona o no. (Cambiar dinámicamente el color de fondo (rojo o verde) en función de si un alumno promociona o no.)
+
+Validación:
+ -Implementar validaciones para evitar la inserción de registros duplicados.
+ -Verificar que sean mayores de edad los alumno que se agregan.
+ -Mostrar mensajes de error o advertencia cuando se detecten duplicados.
+ -Mostrar mensajes de error si no se puede conectar a la base de datos.
+
+Configuración de Parámetros:
+ -Crear una interfaz para configurar parámetros, como la cantidad de días de clase y los porcentajes para promoción y regularidad.
+
+
