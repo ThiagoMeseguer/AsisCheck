@@ -7,7 +7,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
     if (isset($_GET['nombre'])) {
         // si encuentra json - verifica si hay alguien - nadie
-        $listado = $db -> ejecutar("SELECT * FROM `alumnos` WHERE nombre LIKE '%".$_GET['nombre']."%'");
+        $listado = $db -> ejecutar("SELECT * FROM `alumnos` WHERE nombre LIKE '%".$_GET['nombre']."%' ORDER BY apellido ASC");
         if ($listado !== []) {
             echo json_encode($listado); // Si encuentra
             exit;

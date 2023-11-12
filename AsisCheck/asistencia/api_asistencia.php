@@ -5,13 +5,13 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
     switch ($_GET['tipo']) {
         case 'listado':
-            $listado = $db -> ejecutar("SELECT dni_alumno,nombre,apellido FROM alumnos");
+            $listado = $db -> ejecutar("SELECT dni_alumno,nombre,apellido FROM alumnos ORDER BY apellido ASC");
             echo json_encode($listado);
             break;
         case 'registrar':
             $fecha = $_GET['fecha'];
             $fecha = date(("Y-m-d"),strtotime($fecha));
-            $listado = $db -> ejecutar("SELECT dni_alumno,nombre,apellido FROM alumnos WHERE alumnos.dni_alumno NOT IN (SELECT dni FROM asistencias WHERE DATE(fecha) = '$fecha' )");
+            $listado = $db -> ejecutar("SELECT dni_alumno,nombre,apellido FROM alumnos WHERE alumnos.dni_alumno NOT IN (SELECT dni FROM asistencias WHERE DATE(fecha) = '$fecha' ) ORDER BY apellido ASC");
             echo json_encode($listado);
         break;
         case 'cantasistencia':
