@@ -7,12 +7,14 @@ Lenguajes:
 
 Interfaz:
  -Utilizar Bootstrap
+ -SweetAlert
+ -Libreria javascript: jsPDF
 
-Alta, Baja y Modificaci髇 de Alumnos:
+Alta, Baja y Modificaci贸n de Alumnos:
  -Crear una interfaz para agregar nuevos alumnos con campos para nombre, apellido, DNI y fecha de nacimiento.
- -Permitir la modificaci髇 de los datos de los alumnos existentes.
+ -Permitir la modificaci贸n de los datos de los alumnos existentes.
  -Implementar la funcionalidad para eliminar alumnos.
- -Mostrar un listado de alumnos ordenado alfab閠icamente por apellido en la interfaz y con un boton para registra la asistencia del dia actual.
+ -Mostrar un listado de alumnos ordenado alfab茅ticamente por apellido en la interfaz y con un boton para registra la asistencia del dia actual.
 
 Porcentaje de Asistencias:
  -Calcular y mostrar el porcentaje de asistencias de cada alumno en la interfaz.
@@ -22,15 +24,15 @@ Cargar Asistencia:
 
 Promocionar o No:
  -Utilizar el porcentaje de asistencias para determinar si un alumno promociona.
- -Marcar en la interfaz si un alumno promociona o no. (Cambiar din醡icamente el color de fondo (rojo o verde) en funci髇 de si un alumno promociona o no.)
+ -Marcar en la interfaz si un alumno promociona o no. (Cambiar din谩micamente el color de fondo (rojo o verde) en funci贸n de si un alumno promociona o no.)
 
-Validaci髇:
- -Implementar validaciones para evitar la inserci髇 de registros duplicados.
- -Verificar que sean mayores de edad los alumno que se agregan y hasta una edad maxima de 120 a駉s.
+Validaci贸n:
+ -Implementar validaciones para evitar la inserci贸n de registros duplicados.
+ -Verificar que sean mayores de edad los alumno que se agregan y hasta una edad maxima de 120 a帽os.
  -Mostrar mensajes de error o advertencia cuando se detecten duplicados.
  -Mostrar mensajes de error si no se puede conectar a la base de datos.
 
-Configuraci髇 de Par醡etros:
- -Crear una interfaz para configurar par醡etros, como la cantidad de d韆s de clase y los porcentajes para promoci髇 y regularidad.
+Configuraci贸n de Par谩metros:
+ -Crear una interfaz para configurar par谩metros, como la cantidad de d铆as de clase y los porcentajes para promoci贸n y regularidad.
 
 
