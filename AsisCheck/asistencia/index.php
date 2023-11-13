@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Asistencia</title>
-    <link rel="shortcut icon" href="../images/verificar.png">
+    <link rel="shortcut icon" href="../images/evaluacion.png">
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
 
