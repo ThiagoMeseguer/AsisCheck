@@ -2,7 +2,7 @@ Instalar AsisCheck con Laragon:
 
 1- Clonar repositorio desde https://github.com/ThiagoMeseguer/AsisCheck.
 2- Descomprimir .zip
-3- Colocar la carpeta descomprimida dentro de la carpeta www que se ubica en C:/laragon.
+3- Colocar la carpeta AsisCheck (Esta ubicada dentro de AsisCheck-main) dentro de la carpeta www que se ubica en C:/laragon.
 3- Abrir Laragon.
 4- Apretar Iniciar Todo.
 5- Abrir HeidiSQL.
