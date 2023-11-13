@@ -2,6 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   cargarDatosDesdeAPI('alumno/api_alumno.php?nombre=');
 });
+
 // CONSTANTES
 
 const $min_dni = 10;
@@ -15,7 +16,6 @@ async function buscarAlumno(dni) {
   try {
     let response = await fetch('alumno/api_alumno.php?dni=' + dni);
     let data = await response.json();
-    //console.log(data);
     return data;
   } catch (error){
     console.log(error)
@@ -46,9 +46,7 @@ async function verificarAsistencia(dni) {
 async function promocion(id, $promedio, data) { // Cambiar color segun la condicion 
   try {
     let promocion = data[0]['porcentaje_promocion'];  // Porcentaje para promocionar
-    //console.log(promocion);
     let regular = data[0]['porcentaje_regular'];  // Porcentaje para regular
-    //console.log(regular);
     let fila = document.getElementById("fila_" + id);
     if ($promedio > promocion) {
       return fila.classList.add('table-success'); // promocion
@@ -86,7 +84,7 @@ async function cantAsistencia(dni) {
 
 
 function verificarAlumnos() {
-  fetch('alumno/api_alumno.php')
+  fetch('alumno/api_alumno.php?nombre=')
     .then(response => {
       if (!response.ok) {
         throw new Error('Error en la solicitud a la API');
@@ -158,9 +156,9 @@ async function cargarDatosDesdeAPI(url) {
             <td class="col-1">${alumno.dni_alumno}</td>
             <td class="col-1">${alumno.apellido}</td> 
             <td class="col-1">${alumno.nombre}</td>
-            <td class="col-1">${formatearFecha(alumno.nacimiento)}</td>
-            <td class="col-1">${presente}</td>
-            <td class="col-1">${promedio}%</td>
+            <td class="col-2" style="padding-left:30px;">${formatearFecha(alumno.nacimiento)}</td>
+            <td class="col-1" style="text-align:center;">${presente}</td>
+            <td class="col-1" style="text-align:center">${promedio}%</td>
             <td class="col-1">
             <button id="editar" class="btn btn-warning text-center editar-alumno" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="modal_editar(${alumno.dni_alumno})">
               Editar
@@ -185,7 +183,10 @@ async function cargarDatosDesdeAPI(url) {
         cargarDatosDesdeAPI("alumno/api_alumno.php");
       } else {
         // No hay alumnos
-        document.getElementById("sinAlumnos").innerHTML = `${modal} <br> Sin alumnos registrados`;
+        document.getElementById("sin_alumnos").innerHTML = `
+        <br>
+        <h5 style="text-align: center;color:white;">Sin alumnos registrados</h5>
+      `;      
       }
     }
   } catch (error) {
@@ -249,9 +250,8 @@ async function form_agregarAlumno() {
     document.getElementById("agregar.nombre").classList.remove("is-invalid");
     document.getElementById("agregar.apellido").classList.remove("is-invalid");
     document.getElementById("agregar.nacimiento").classList.remove("is-invalid");
-    console.log(dni.length)
+
     if ((dni > 0)&&(dni.length <= 10)) {
-      //document.getElementById("agregar.dni_alumno").classList.add("is-invalid");
       if (await buscarAlumno(dni)) { // Validar DNI
         errores.push("Dni (Duplicado)");
         enviar = false;
@@ -275,15 +275,28 @@ async function form_agregarAlumno() {
     }
 
     let edad = calcularEdad(nacimiento);
+    let edadmin = 18;
+    let edadmax = 120;
+    let hoy = new Date().toISOString().split('T')[0];
 
-    if (edad < 18) {
+    if (nacimiento<=hoy){
+      if (edad < edadmin) {
+        document.getElementById("agregar.nacimiento").classList.add("is-invalid");
+        errores.push("Menor de edad");
+        enviar = false;
+      }
+      if (edad > edadmax) {
+        document.getElementById("agregar.nacimiento").classList.add("is-invalid");
+        errores.push(`Limite de edad ${edadmax} años`);
+        enviar = false;
+      }
+    }else{
       document.getElementById("agregar.nacimiento").classList.add("is-invalid");
-      errores.push("Menor de edad");
+      errores.push("Fecha Invalida");
       enviar = false;
     }
 
-    if (enviar) { // Enviar el formulario para Agregar o tirar alerta
-      // Realizar la solicitud al servidor utilizando fetch
+    if (enviar) { // Enviar el formulario para Agregar
       let data = new FormData();
       data.append('dni_alumno', dni);
       data.append('nombre', nombre);
@@ -352,10 +365,9 @@ form_parametros.addEventListener("submit", function (event) {
     });
   }
 });
-// FORMULARIO DE EDITAR ALUMNO (Linea 182)
+// FORMULARIO DE EDITAR ALUMNO (Linea 200)
 function form_editar() {
   try {
-    console.log(document.getElementById("editar.dni_alumno").value);
     let id = document.getElementById("editar.id_alumno").value;
     let dniViejo = document.getElementById("editar.dni_viejo").value;
     let dni = document.getElementById("editar.dni_alumno").value;
@@ -369,33 +381,46 @@ function form_editar() {
 
     let enviar = true;
     let errores = [];
-    console.log(dni.length >= 10);
     if ((dni < 1) || (dni.length >= 10)) {
       errores.push("Dni Invalido");
       document.getElementById("editar.dni_alumno").classList.add("is-invalid");
       enviar = false;
     }
     if (!validarNombreApellido(nombre)) { // Validar NOMBRE
-      console.log(nombre);
       errores.push("Nombre");
       document.getElementById("editar.nombre").classList.add("is-invalid");
       enviar = false;
     }
 
     if (!validarNombreApellido(apellido)) {
-      console.log(apellido);
       errores.push("Apellido");
       document.getElementById("editar.apellido").classList.add("is-invalid");
       enviar = false;
     }
 
-    if (calcularEdad(nacimiento) < 18) {
-      errores.push("No puede ser menor de edad");
+    let edadmin = 18;
+    let edadmax = 120;
+    let hoy = new Date().toISOString().split('T')[0];
+
+    if (nacimiento<=hoy){
+      edad = calcularEdad(nacimiento)
+      if (edad < edadmin) {
+        document.getElementById("editar.nacimiento").classList.add("is-invalid");
+        errores.push("Menor de edad");
+        enviar = false;
+      }
+      if (edad > edadmax) {
+        document.getElementById("editar.nacimiento").classList.add("is-invalid");
+        errores.push(`Limite de edad ${edadmax} años`);
+        enviar = false;
+      }
+    }else{
       document.getElementById("editar.nacimiento").classList.add("is-invalid");
+      errores.push("Fecha Invalida");
       enviar = false;
     }
+
     if (enviar) {
-      console.log(dni, nombre, nacimiento, apellido);
       let data = new FormData();
       data.append('id_alumno', id);
       data.append('dni_viejo',dniViejo);
@@ -467,7 +492,6 @@ function deleteAlumno(dni) {
 }
 
 function agregarAsistencia(dni){
-  console.log(dni);
   fetch("asistencia/agregar_asistencia.php?dni="+dni)
   .then(response => {
     if (response.ok) {

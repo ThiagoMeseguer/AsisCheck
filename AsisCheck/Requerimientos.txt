@@ -12,7 +12,7 @@ Alta, Baja y Modificación de Alumnos:
  -Crear una interfaz para agregar nuevos alumnos con campos para nombre, apellido, DNI y fecha de nacimiento.
  -Permitir la modificación de los datos de los alumnos existentes.
  -Implementar la funcionalidad para eliminar alumnos.
- -Mostrar un listado de alumnos ordenado alfabéticamente por apellido en la interfaz.
+ -Mostrar un listado de alumnos ordenado alfabéticamente por apellido en la interfaz y con un boton para registra la asistencia del dia actual.
 
 Porcentaje de Asistencias:
  -Calcular y mostrar el porcentaje de asistencias de cada alumno en la interfaz.
@@ -26,7 +26,7 @@ Promocionar o No:
 
 Validación:
  -Implementar validaciones para evitar la inserción de registros duplicados.
- -Verificar que sean mayores de edad los alumno que se agregan.
+ -Verificar que sean mayores de edad los alumno que se agregan y hasta una edad maxima de 120 años.
  -Mostrar mensajes de error o advertencia cuando se detecten duplicados.
  -Mostrar mensajes de error si no se puede conectar a la base de datos.
 

@@ -86,7 +86,6 @@ $alumno = new Alumno();
     <input class="form-label text-center" type="text" id="nombre" placeholder="Nombre">
     <br>
     <button class="form-label" id="buscar" name="buscar">Buscar</button>
-    <div id="sinAlumnos"></div>
   </div>
   <div class="table-responsive " style="max-width: 1300px;margin: 0 auto;">
     <div id="error"></div>
@@ -94,10 +93,10 @@ $alumno = new Alumno();
       <thead id="head_tabla">
         <thead>
           <tr>
-            <th>Dni</th>
-            <th>Apellido</th>
-            <th>Nombre</th>
-            <th class="col-1">Fecha Nacimiento</th>
+            <th class="col-1">Dni</th>
+            <th class="col-1">Apellido</th>
+            <th class="col-1">Nombre</th>
+            <th class="col-2">Fecha Nacimiento</th>
             <th class="col-1">N°Asistencia</th>
             <th class="col-1">Promedio</th>
             <th class="col-2"> 
@@ -147,6 +146,7 @@ $alumno = new Alumno();
         <!-- Listado de alumnos -->
       </tbody>
     </table>
+    <div id="sin_alumnos"></div>
 
     <!-- Modal Editar Alumno -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

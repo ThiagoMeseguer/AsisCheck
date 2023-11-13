@@ -48,13 +48,13 @@
           $i = 0;
             if (count($listado) > 0) {
               ?>
-              <div id="listado"><h5 style="color:white;">Listado Fecha: <?php print date('d-m-Y', strtotime($_GET['fecha'])) ?></h5>
+              <br><div id="listado"><h5 style="color:white;">Listado Fecha: <?php print date('d-m-Y', strtotime($_GET['fecha'])) ?></h5>
               <?php
               foreach ($listado as $alumno){
                 $i = $i+1;
                 print ('<li id="alumno'.$i.'">'.$alumno['apellido'].', '.$alumno['nombre'].'</li><br>');
               } ?> 
-              <input type="button" class="btn btn-success" id="descargapdf" value="Descargar Asistencia">
+              <input type="button" class="btn btn-success" id="descargapdf" onclick="descargarPdf()" value="Descargar Asistencia">
               <a class="btn btn-success" href="index.php">Otra consulta</a>
               </div> 
               <?php
@@ -64,7 +64,7 @@
           
         }else{ ?>
           <form action="index.php" method="get"> <br>
-            <input type="date" id="fecha" name="fecha"> <br> <br>
+            <input type="date" id="fecha" name="fecha" required> <br> <br>
             <input type="submit" class="btn btn-success btn-sm" id="descarga" name="descarga" value="Consultar">
           </form>
           <?php }
@@ -73,21 +73,22 @@
       }
     ?>
 </body>
-<script>
-  document.getElementById("descargapdf").addEventListener("click", function () {
-    const doc = new jsPDF();
-    doc.text("Alumnos Presentes fecha: <?php echo date('d-m-Y') ?> ", 10, 10);
-    <?php
-    $i = 0;
-    foreach ($listado as $alumno) {
-      $i = $i + 1;
-      echo 'doc.text("' . $alumno['nombre'] . ', ' . $alumno['apellido'] . '", 10, ' . (20 + $i * 10) . ');';
+<script type="text/javascript">
+    function descargarPdf(){
+      const doc = new jsPDF();
+      doc.text("Alumnos Presentes fecha: <?php echo date('d-m-Y') ?> ", 10, 10);
+      <?php
+      if (count($listado) > 0){
+        $i = 0;
+        foreach ($listado as $alumno) {
+          $i = $i + 1;
+          echo 'doc.text("' . $alumno['nombre'] . ', ' . $alumno['apellido'] . '", 10, ' . (20 + $i * 10) . ');';
+        }
+      }
+      ?>
+      // Guarda el PDF con el nombre "asistencias.pdf"
+      doc.save("asistencia<?php echo date('d-m-Y') ?>.pdf");
     }
-    ?>
-    // Guarda el PDF con el nombre "asistencias.pdf"
-    doc.save("asistencia<?php echo date('d-m-Y') ?>.pdf");
-  });
-
 </script>
 <script type="text/javascript" src="../js/jspdf.min.js"></script>
 </html>

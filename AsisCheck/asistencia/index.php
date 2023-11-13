@@ -73,24 +73,29 @@
       if (!$db -> conectar()) {
         print '<br><h6 style="text-align: center;">Hubo un error al conectar a la base de datos</h6>';
       }else{
+        $cant_alumnos = $db -> ejecutar("SELECT dni_alumno FROM alumnos");
+        if (count($cant_alumnos)>0) { ?>
+          <div class="container" style="text-align:center">
+              <br>
+              <h5 style="color:white;">Seleccione una fecha</h5>
+              <div id="formularioAsistencia">
+                  <input type="datetime-local" name="fecha" id="fecha">
+                  <br>
+                  <div class="mx-auto" style="max-width: 700px;">
+                  <br>
+                      <!-- Listado de alumnos -->
+                      <table id="listado" class="table table-dark" style="text-align:center;" >
+                          <thead></thead>
+                          <tbody id="body_tabla"></tbody>
+                      </table>
+                  </div>
+                  <div id="btn-registrar" ></div>
+              </form>
+          </div> <?php
+        }else{
+          print '<br><h5 style="text-align: center;color:white;">Sin alumnos registrados</h5>';
+        }
     ?>
-    <div class="container" style="text-align:center">
-        <br>
-        <h5 style="color:white;">Seleccione una fecha</h5>
-        <div id="formularioAsistencia">
-            <input type="datetime-local" name="fecha" id="fecha">
-            <br>
-            <div class="mx-auto" style="max-width: 700px;">
-            <br>
-                <!-- Listado de alumnos -->
-                <table id="listado" class="table table-dark" style="text-align:center;" >
-                    <thead></thead>
-                    <tbody id="body_tabla"></tbody>
-                </table>
-            </div>
-            <div id="btn-registrar"></div>
-        </form>
-    </div>
     <?php } ?>
 </body>
 <script src="../js/sweetalert2.all.min.js"></script>

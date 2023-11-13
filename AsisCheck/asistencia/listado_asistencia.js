@@ -1,16 +1,17 @@
 // Evento de clic en el botón de búsqueda
+if (document.getElementById('fecha')) { // Ver si existe porque sino da error
     document.getElementById('fecha').addEventListener("input", function() {
     let input = document.getElementById('fecha').value;
-    console.log(input);
-    if (input === "") {
-        // Si está vacío, cargar todos los datos
-        window.alert("Fecha no ingresada");
-        //cargarDatosDesdeAPI('api_asistencai.php');
-    } else {
-        // Si hay un valor en el campo de búsqueda, cargar datos filtrados
-        cargarDatosDesdeAPI(`api_asistencia.php?tipo=registrar&fecha=${input}`);
-    }
-});
+        if (input === "") {
+            // Si está vacío, cargar todos los datos
+            window.alert("Fecha no ingresada");
+            //cargarDatosDesdeAPI('api_asistencai.php');
+        } else {
+            // Si hay un valor en el campo de búsqueda, cargar datos filtrados
+            cargarDatosDesdeAPI(`api_asistencia.php?tipo=registrar&fecha=${input}`);
+        }
+    });
+}
 
 function cargarDatosDesdeAPI(url) {
     fetch(url)
@@ -23,7 +24,6 @@ function cargarDatosDesdeAPI(url) {
         .then(function (data) {
             const bodyTabla = document.getElementById('body_tabla');
             if (data.length != 0) {
-                console.log(data);
                 // Limpiar la tabla actual
                 bodyTabla.innerHTML = '';
                 bodyTabla.innerHTML = `<thead><tr>
@@ -42,7 +42,7 @@ function cargarDatosDesdeAPI(url) {
                         <td class="col-1"><input type="checkbox" class="form-check-input form-check-xl" name="asistieron" value="${alumno.dni_alumno}"></td>
                     `;
                     bodyTabla.appendChild(row);
-                    document.getElementById('btn-registrar').innerHTML = `<input type="button" value="Registrar" onclick="agregarAsistencia()"> `
+                    document.getElementById('btn-registrar').innerHTML = `<input type="button" class="btn btn-success" value="Registrar" onclick="agregarAsistencia()"> `
                 });
             }else{
                 // Si ya estan todos con asistencia
@@ -63,16 +63,11 @@ function cargarDatosDesdeAPI(url) {
                 asistieron.push(checkbox.value);
             }
         });
-        console.log(asistieron.length > 0);
         if (asistieron.length > 0) {
-            
-            console.log(fecha);
-            
             const formData = new FormData();
             
             // Agregar las variables como pares clave-valor al objeto FormData
             formData.append('asistieron', asistieron);
-            console.log(asistieron);
             formData.append('fecha', fecha);
             try {
                 fetch('agregar_asistencia.php', {
@@ -110,7 +105,6 @@ function formParametros(){
     let promocion = document.getElementById('promocion').value;
     let regular = document.getElementById('regular').value;
 
-    console.log(diasclase);
     if (promocion > regular) {
         let data = new FormData();
         data.append('diasclase',diasclase);
