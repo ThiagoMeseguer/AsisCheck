@@ -46,7 +46,7 @@ INSERT INTO parametros (cant_dias,porcentaje_promocion,porcentaje_regular)VALUES
 INSERT INTO `alumnos` (`id_alumno`, `dni_alumno`, `nombre`, `apellido`, `nacimiento`) VALUES
 	(1, 40790201, 'Esteban', 'Copello', '1998-02-13'),
 	(2, 42850626, 'Lucas', 'Barreiro', '2000-10-04'),
-  (3, 45847922, 'Franco', 'Cabrera', '1999-11-12'),
+  (3, 45847922, 'Agustin', 'Cabrera', '1999-11-12'),
   (4, 43149316, 'Franco Agustin', 'Chappe', '1997-09-14'),
   (5, 43632750, 'Roman', 'Coletti', '1995-01-23'),
   (6, 40790545, 'Daian Exequiel', 'Fernandez', '1996-10-10'),
