@@ -276,7 +276,7 @@ async function form_agregarAlumno() {
 
     let edad = calcularEdad(nacimiento);
     let edadmin = 18;
-    let edadmax = 120;
+    let edadmax = 200;
     let hoy = new Date().toISOString().split('T')[0];
 
     if (nacimiento<=hoy){
@@ -399,7 +399,7 @@ function form_editar() {
     }
 
     let edadmin = 18;
-    let edadmax = 120;
+    let edadmax = 200;
     let hoy = new Date().toISOString().split('T')[0];
 
     if (nacimiento<=hoy){
