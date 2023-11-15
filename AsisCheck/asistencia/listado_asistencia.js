@@ -105,28 +105,34 @@ function formParametros(){
     let promocion = document.getElementById('promocion').value;
     let regular = document.getElementById('regular').value;
 
-    if ((promocion > regular)||($promocion = 100)) { // Agregue promocion = 100 porque Daba error al poner 100 la promocion, daba false la condicion
-        let data = new FormData();
-        data.append('diasclase',diasclase);
-        data.append('promocion',promocion);
-        data.append('regular',regular);
-        fetch('../parametros/configurar_parametros.php', {
-            method: 'POST',
-            body: data
-        }).then(
-            Swal.fire({ icon: "success", title: "¡Actualizado con exito!"})
-        ).then(
-            modal = document.getElementById('modal_parametros'),
-            modalInstance = bootstrap.Modal.getInstance(modal),
-            modalInstance.hide()
-        )
-      }else{
-        document.getElementById("promocion").classList.add("is-invalid");
-        document.getElementById("regular").classList.add("is-invalid");
+    if ((promocion >= 0 && promocion <= 100) && (regular >= 0 && regular <= 100)) {
+        if ((promocion >= 0 && promocion <= 100) &&(regular >= 0 && regular <= 100) &&(promocion > regular || promocion === '100') && regular < 100)  {
+            let data = new FormData();
+            data.append('diasclase',diasclase);
+            data.append('promocion',promocion);
+            data.append('regular',regular);
+            fetch('../parametros/configurar_parametros.php', {
+                method: 'POST',
+                body: data
+            }).then(
+                Swal.fire({ icon: "success", title: "¡Actualizado con exito!"})
+            ).then(
+                modal = document.getElementById('modal_parametros'),
+                modalInstance = bootstrap.Modal.getInstance(modal),
+                modalInstance.hide()
+            )
+        } else {
+          Swal.fire({
+            icon: "warning",
+            title: "¡Error en los porcentajes!",
+            text: "El porcentaje de promocion debe ser mayor que el de regular"
+          });
+        }
+    }else{
         Swal.fire({
-          icon: "warning",
-          title: "¡Error en los porcentajes!",
-          text: "El porcentaje de promocion debe ser mayor que el de regular"
+            icon: "warning",
+            title: "¡Error en los porcentajes!",
+            text: "Porcentajes no validos"
         });
-      }
+    }
 }   

@@ -279,7 +279,7 @@ async function form_agregarAlumno() {
     let edadmax = 200;
     let hoy = new Date().toISOString().split('T')[0];
 
-    if (nacimiento<=hoy){
+    if ((nacimiento<=hoy)&&(nacimiento != '')){
       if (edad < edadmin) {
         document.getElementById("agregar.nacimiento").classList.add("is-invalid");
         errores.push("Menor de edad");
@@ -351,17 +351,26 @@ form_parametros.addEventListener("submit", function (event) {
   let regular = document.getElementById('regular').value;
   document.getElementById("promocion").classList.add("is-invalid");
   document.getElementById("regular").classList.add("is-invalid");
-  if ((promocion > regular)||($promocion = 100)) { // Agregue promocion = 100 porque Daba error al poner 100 la promocion, daba false la condicion
-    Swal.fire({ icon: "success", title: "¡Actualizado con exito!" });
-    // Envía el formulario después de mostrar la alerta
-    setTimeout(function () {
-      form_parametros.submit();
-    }, 1000);
-  } else {
+
+  if ((promocion >= 0 && promocion <= 100) && (regular >= 0 && regular <= 100)) {
+    if ((promocion >= 0 && promocion <= 100) &&(regular >= 0 && regular <= 100) &&(promocion > regular || promocion === '100') && regular < 100) {
+      Swal.fire({ icon: "success", title: "¡Actualizado con exito!" });
+      // Envía el formulario después de mostrar la alerta
+      setTimeout(function () {
+        form_parametros.submit();
+      }, 1000);
+    } else {
+      Swal.fire({
+        icon: "warning",
+        title: "¡Error en los porcentajes!",
+        text: "El porcentaje de promocion debe ser mayor que el de regular"
+      });
+    }
+  }else{
     Swal.fire({
       icon: "warning",
       title: "¡Error en los porcentajes!",
-      text: "El porcentaje de promocion debe ser mayor que el de regular"
+      text: "Porcentajes no validos"
     });
   }
 });
@@ -402,7 +411,7 @@ function form_editar() {
     let edadmax = 200;
     let hoy = new Date().toISOString().split('T')[0];
 
-    if (nacimiento<=hoy){
+    if ((nacimiento<=hoy)&&(nacimiento != '')){
       edad = calcularEdad(nacimiento)
       if (edad < edadmin) {
         document.getElementById("editar.nacimiento").classList.add("is-invalid");
