@@ -18,7 +18,8 @@ Alta, Baja y Modificación de Alumnos:
 
 Porcentaje de Asistencias:
  -Calcular y mostrar el porcentaje de asistencias de cada alumno en la interfaz.
-
+    -Promocion: mayor al porcentaje de promocion.
+    -Regular: menor o igual al porcentaje de promocion y mayor o igual al porcentaje de regular.
 Cargar Asistencia:
  -Crear una interfaz para registrar la asistencia de los alumnos.
 
