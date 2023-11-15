@@ -105,7 +105,7 @@ function formParametros(){
     let promocion = document.getElementById('promocion').value;
     let regular = document.getElementById('regular').value;
 
-    if (promocion > regular) {
+    if ((promocion > regular)||($promocion = 100)) { // Agregue promocion = 100 porque Daba error al poner 100 la promocion, daba false la condicion
         let data = new FormData();
         data.append('diasclase',diasclase);
         data.append('promocion',promocion);
