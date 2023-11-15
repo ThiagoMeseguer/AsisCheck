@@ -82,23 +82,18 @@ async function cantAsistencia(dni) {
   }
 }
 
-
-function verificarAlumnos() {
-  fetch('alumno/api_alumno.php?nombre=')
-    .then(response => {
+async function verificarAlumnos() {
+    try {
+      const response = await fetch('alumno/api_alumno.php?nombre=');
       if (!response.ok) {
         throw new Error('Error en la solicitud a la API');
       }
-      return response.json();
-    })
-    .then(data => {
+      const data = await response.json();
       return data.length > 0;
-    })
-    .catch(error => {
-      console.error(error);
+    } catch (error) {
       return false;
-    });
-}
+    }
+  } 
 
 function validarNombreApellido(nombre) {
   // Expresión regular que verifica que el nombre contiene solo letras y espacios, y tiene al menos 2 caracteres.
@@ -179,8 +174,7 @@ async function cargarDatosDesdeAPI(url) {
       const hayAlumnos = await verificarAlumnos();
       if (hayAlumnos) {
         // Hay alumnos, realizar alguna acción
-        window.alert("No encontro");
-        cargarDatosDesdeAPI("alumno/api_alumno.php");
+        cargarDatosDesdeAPI("alumno/api_alumno.php?nombre=");
       } else {
         // No hay alumnos
         document.getElementById("sin_alumnos").innerHTML = `
