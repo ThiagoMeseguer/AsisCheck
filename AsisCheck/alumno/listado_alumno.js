@@ -351,7 +351,7 @@ form_parametros.addEventListener("submit", function (event) {
   let regular = document.getElementById('regular').value;
   document.getElementById("promocion").classList.add("is-invalid");
   document.getElementById("regular").classList.add("is-invalid");
-  if ((promocion > regular)||($promocion = 100)) {
+  if ((promocion > regular)||($promocion = 100)) { // Agregue promocion = 100 porque Daba error al poner 100 la promocion, daba false la condicion
     Swal.fire({ icon: "success", title: "¡Actualizado con exito!" });
     // Envía el formulario después de mostrar la alerta
     setTimeout(function () {
